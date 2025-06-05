@@ -448,6 +448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 581885734}
   - component: {fileID: 581885733}
+  - component: {fileID: 581885735}
   m_Layer: 7
   m_Name: Spaceship
   m_TagString: Untagged
@@ -522,6 +523,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &581885735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581885732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85dd4ed3df2df2a4eaa4502c6f6cddfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  rotationspeed: 50
+  maxSpeed: 3
+  accelerationTime: 0.1
+  acceleration: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
