@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
+    float xInput;
+    float yInput;
     public float rotationspeed;
+    public GameObject missle;
+    public float missleCooldown;
     private float maxSpeed = 5f;
     private float accelerationTime = 3f;
     private float deccelerationTime = 7f;
     private float brakeDeccel = 1f;
     private float acceleration;
     private float velocity;
+
+
+    private float missleOffsetY = 0.4f;
+    private float missleOffsetX = 0.06f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,14 +29,26 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.UpArrow)){
+        GetInput();
+        UpdateMovement();
+        UpdateRotation();
+        ShootMissle();
+    }
+
+    void GetInput(){
+        xInput = Input.GetAxisRaw("Horizontal");
+        yInput = Input.GetAxis("Vertical");
+    }
+
+    void UpdateMovement(){
+        if(yInput > 0){
             acceleration = maxSpeed / accelerationTime;
             velocity += acceleration * Time.deltaTime;
             if(velocity > maxSpeed){
                 velocity = maxSpeed;
             }
             transform.Translate(Vector2.up * velocity * Time.deltaTime);
-        }else if(Input.GetKey(KeyCode.DownArrow)){
+        }else if(yInput < 0){
             acceleration = -maxSpeed / brakeDeccel;
             velocity += acceleration * Time.deltaTime;
             if(velocity < 0){
@@ -43,15 +63,22 @@ public class ShipController : MonoBehaviour
             }
             transform.Translate(Vector2.up * velocity * Time.deltaTime);
         }
-        if(Input.GetKey(KeyCode.LeftArrow)){
-            transform.Rotate(0, 0, rotationspeed * Time.deltaTime);
-        }
-        if(Input.GetKey(KeyCode.RightArrow)){
-            transform.Rotate(0, 0, -rotationspeed * Time.deltaTime);
+    }
+
+    void UpdateRotation(){
+        if(Mathf.Abs(xInput) > 0){
+            transform.Rotate(0, 0, rotationspeed * -xInput * Time.deltaTime);
         }
     }
 
-    private void shootMissle(){
-        
+    void ShootMissle(){
+        if(Input.GetKey(KeyCode.Space) && missleCooldown <= 0){
+            Vector3 spawnPos = transform.position + transform.up * missleOffsetY + transform.right * missleOffsetX;
+            Instantiate(missle, spawnPos, transform.rotation);
+            missleCooldown = 0.2f;
+        }
+        if(missleCooldown > 0){
+            missleCooldown -= Time.deltaTime;
+        }
     }
 }
