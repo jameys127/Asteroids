@@ -17,7 +17,7 @@ public class MissleScript : MonoBehaviour
     {
         transform.Translate(Vector2.up * speed * Time.deltaTime);
         if(timeToDespawn <= 0){
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }else{
             timeToDespawn -= Time.deltaTime;
         }
@@ -26,7 +26,7 @@ public class MissleScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Asteroid")){
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

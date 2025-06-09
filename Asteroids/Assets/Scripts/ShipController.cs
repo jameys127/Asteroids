@@ -11,10 +11,11 @@ public class ShipController : MonoBehaviour
     public float missleCooldown;
     private float maxSpeed = 5f;
     private float accelerationTime = 3f;
-    private float deccelerationTime = 7f;
+    private float deccelerationTime = 2.5f;
     private float brakeDeccel = 1f;
     private float acceleration;
     private float velocity;
+    private bool isAlive = true;
 
 
     private float missleOffsetY = 0.4f;
@@ -41,14 +42,14 @@ public class ShipController : MonoBehaviour
     }
 
     void UpdateMovement(){
-        if(yInput > 0){
+        if(yInput > 0 && isAlive){
             acceleration = maxSpeed / accelerationTime;
             velocity += acceleration * Time.deltaTime;
             if(velocity > maxSpeed){
                 velocity = maxSpeed;
             }
             transform.Translate(Vector2.up * velocity * Time.deltaTime);
-        }else if(yInput < 0){
+        }else if(yInput < 0 && isAlive){
             acceleration = -maxSpeed / brakeDeccel;
             velocity += acceleration * Time.deltaTime;
             if(velocity < 0){
@@ -66,19 +67,26 @@ public class ShipController : MonoBehaviour
     }
 
     void UpdateRotation(){
-        if(Mathf.Abs(xInput) > 0){
+        if(Mathf.Abs(xInput) > 0 && isAlive){
             transform.Rotate(0, 0, rotationspeed * -xInput * Time.deltaTime);
         }
     }
 
     void ShootMissle(){
-        if(Input.GetKey(KeyCode.Space) && missleCooldown <= 0){
+        if(Input.GetKey(KeyCode.Space) && missleCooldown <= 0 && isAlive){
             Vector3 spawnPos = transform.position + transform.up * missleOffsetY + transform.right * missleOffsetX;
             Instantiate(missle, spawnPos, transform.rotation);
             missleCooldown = 0.2f;
         }
         if(missleCooldown > 0){
             missleCooldown -= Time.deltaTime;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Asteroid")){
+            isAlive = false;            
         }
     }
 }
