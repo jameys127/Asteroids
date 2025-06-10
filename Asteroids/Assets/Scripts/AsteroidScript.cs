@@ -39,5 +39,12 @@ public class AsteroidScript : MonoBehaviour
         }else if(collision.CompareTag("Missile") && isLittle){
             Destroy(gameObject);
         }
+        if(collision.CompareTag("ScreenWrapTopBottom")){
+            float offset = collision.transform.position.y > 0 ? -0.3f : 0.3f;
+            transform.position = new Vector3(transform.position.x, -transform.position.y - offset, transform.position.z);
+        }else if(collision.CompareTag("ScreenWrapLeftRight")){
+            float offset = collision.transform.position.x > 0 ? -0.3f : 0.3f;
+            transform.position = new Vector3(-transform.position.x - offset, transform.position.y, transform.position.z);
+        }
     }
 }

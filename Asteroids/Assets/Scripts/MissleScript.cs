@@ -5,7 +5,7 @@ using UnityEngine;
 public class MissleScript : MonoBehaviour
 {
     private float speed = 10f;
-    private float timeToDespawn = 2f;
+    private float timeToDespawn = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +27,13 @@ public class MissleScript : MonoBehaviour
     {
         if(collision.CompareTag("Asteroid")){
             Destroy(gameObject);
+        }
+        if(collision.CompareTag("ScreenWrapTopBottom")){
+            float offset = collision.transform.position.y > 0 ? -1f : 1f;
+            transform.position = new Vector3(transform.position.x, -transform.position.y - offset, transform.position.z);
+        }else if(collision.CompareTag("ScreenWrapLeftRight")){
+            float offset = collision.transform.position.x > 0 ? -1f : 1f;
+            transform.position = new Vector3(-transform.position.x - offset, transform.position.y, transform.position.z);
         }
     }
 }
