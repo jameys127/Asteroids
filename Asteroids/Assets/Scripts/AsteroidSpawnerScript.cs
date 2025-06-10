@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class AsteroidSpawnerScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject[] asteroids;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void SpawnAsteroid(){
+        Instantiate(asteroids[Random.Range(0,4)], transform.position, transform.rotation);
     }
 }

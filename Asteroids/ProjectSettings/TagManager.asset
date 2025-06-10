@@ -9,6 +9,7 @@ TagManager:
   - Spaceship
   - ScreenWrapTopBottom
   - ScreenWrapLeftRight
+  - AsteroidSpawner
   layers:
   - Default
   - TransparentFX
