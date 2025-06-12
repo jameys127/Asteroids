@@ -487,6 +487,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid1
       objectReference: {fileID: 0}
+    - target: {fileID: 57555305511956493, guid: a39bff57ccaeef247be55114545edda6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3382784015356629989, guid: a39bff57ccaeef247be55114545edda6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.4271154
@@ -900,7 +904,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.03, y: 1.88, z: 0.044207882}
-  m_LocalScale: {x: 0.28, y: 0.28, z: 2.8}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 3.0000002}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -1544,7 +1548,7 @@ GameObject:
   - component: {fileID: 1228360410}
   m_Layer: 0
   m_Name: GameLogicManager
-  m_TagString: Untagged
+  m_TagString: GameLogicManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1561,6 +1565,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77430749a1d742149bb15bc7dfb833e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawners:
+  - {fileID: 869790224}
+  - {fileID: 605280286}
+  - {fileID: 667618939}
+  - {fileID: 52573996}
+  - {fileID: 1481655338}
+  - {fileID: 517189893}
+  - {fileID: 1580158023}
+  - {fileID: 1726458317}
+  - {fileID: 979338054}
+  - {fileID: 833499741}
+  - {fileID: 1870328159}
+  - {fileID: 476578185}
+  - {fileID: 559236595}
 --- !u!4 &1228360411
 Transform:
   m_ObjectHideFlags: 0
@@ -6769,6 +6787,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid3
       objectReference: {fileID: 0}
+    - target: {fileID: 2558136461445534450, guid: 4c3fcd1236caf81418913625d114862d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3109116810209300456, guid: 4c3fcd1236caf81418913625d114862d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.7680497
@@ -6826,6 +6848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid2
       objectReference: {fileID: 0}
+    - target: {fileID: 3160874246082701392, guid: 1cde277fe2ee35140bb438977f1ad087, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4758389696145971879, guid: 1cde277fe2ee35140bb438977f1ad087, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.3113756
@@ -6882,6 +6908,10 @@ PrefabInstance:
     - target: {fileID: 872455110367048548, guid: 154f61e8b4adaf440b052df7af736939, type: 3}
       propertyPath: m_Name
       value: Asteroid4
+      objectReference: {fileID: 0}
+    - target: {fileID: 872455110367048548, guid: 154f61e8b4adaf440b052df7af736939, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436497186489479484, guid: 154f61e8b4adaf440b052df7af736939, type: 3}
       propertyPath: m_LocalPosition.x

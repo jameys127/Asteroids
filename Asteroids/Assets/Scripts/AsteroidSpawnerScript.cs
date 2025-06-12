@@ -6,7 +6,8 @@ public class AsteroidSpawnerScript : MonoBehaviour
 {
     public GameObject[] asteroids;
 
-    void SpawnAsteroid(){
-        Instantiate(asteroids[Random.Range(0,4)], transform.position, transform.rotation);
+    public GameObject SpawnAsteroid(){
+        GameObject asteroid = Instantiate(asteroids[Random.Range(0,4)], transform.position, transform.rotation);
+        return asteroid;
     }
 }

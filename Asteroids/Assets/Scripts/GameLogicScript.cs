@@ -4,15 +4,52 @@ using UnityEngine;
 
 public class GameLogicScript : MonoBehaviour
 {
+
+    public GameObject[] spawners;
+    private int difficulty = 5;
+    private List<GameObject> asteroidsInPlay = new List<GameObject>();
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(StartGame());
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    IEnumerator StartGame(){
+        while(true){
+            yield return new WaitForSeconds(1f);
+            Debug.Log("starting game");
+            RandomlySpawn();
+            yield return new WaitUntil(() => asteroidsInPlay.Count == 0);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    public void AddAsteroidsInPlay(GameObject asteroid){
+        asteroidsInPlay.Add(asteroid);
+    }
+    public void RemoveAsteroidInPlay(GameObject asteroid){
+        asteroidsInPlay.Remove(asteroid);
+    }
+
+    void RandomlySpawn(){
+        List<int> index = new List<int>();
+        int counter = 0;
+
+        while(counter < difficulty){
+            int randomIndex = Random.Range(0, 13);
+            if((index.Count == 0 || index.Count > 0) && !index.Contains(randomIndex)){
+                index.Add(randomIndex);
+                asteroidsInPlay.Add(spawners[randomIndex].GetComponent<AsteroidSpawnerScript>().SpawnAsteroid());
+                counter++;
+            }
+        }
     }
 }

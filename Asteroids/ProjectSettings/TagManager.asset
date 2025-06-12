@@ -10,6 +10,7 @@ TagManager:
   - ScreenWrapTopBottom
   - ScreenWrapLeftRight
   - AsteroidSpawner
+  - GameLogicManager
   layers:
   - Default
   - TransparentFX

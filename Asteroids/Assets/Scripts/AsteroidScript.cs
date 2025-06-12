@@ -8,6 +8,7 @@ public class AsteroidScript : MonoBehaviour
     private float asteroidSpeed = 2f;
     private float littleAsteroidSpeed = 4.5f;
     public GameObject[] littleAsteroids;
+    public GameLogicScript logic;
     Vector3 spawnOffset1;
     Vector3 spawnOffset2;
     Vector2 moveSpeed;
@@ -15,6 +16,7 @@ public class AsteroidScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        logic = GameObject.FindGameObjectWithTag("GameLogicManager").GetComponent<GameLogicScript>();
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         float randomSpeed = Random.Range(0.5f, 1.5f);
         moveSpeed = randomDirection * randomSpeed * asteroidSpeed;
@@ -41,11 +43,15 @@ public class AsteroidScript : MonoBehaviour
             spawnOffset1 = transform.position + transform.up * 0.2f + transform.right * 0.1f;
             spawnOffset2 = transform.position + transform.up * -0.2f + transform.right * -0.1f;
             GameObject asteroid1 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset1, transform.rotation);
+            logic.AddAsteroidsInPlay(asteroid1);
             asteroid1.GetComponent<AsteroidScript>().SetIsLittleToTrue();
             GameObject asteroid2 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset2, transform.rotation);
+            logic.AddAsteroidsInPlay(asteroid2);
             asteroid2.GetComponent<AsteroidScript>().SetIsLittleToTrue();
+            logic.RemoveAsteroidInPlay(gameObject);
             Destroy(gameObject);
         }else if(collision.CompareTag("Missile") && isLittle){
+            logic.RemoveAsteroidInPlay(gameObject);
             Destroy(gameObject);
         }
         if(collision.CompareTag("ScreenWrapTopBottom")){
