@@ -42,22 +42,35 @@ public class AsteroidScript : MonoBehaviour
         if(collision.CompareTag("Missile") && isLittle == false){
             spawnOffset1 = transform.position + transform.up * 0.2f + transform.right * 0.1f;
             spawnOffset2 = transform.position + transform.up * -0.2f + transform.right * -0.1f;
+
             GameObject asteroid1 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset1, transform.rotation);
             logic.AddAsteroidsInPlay(asteroid1);
             asteroid1.GetComponent<AsteroidScript>().SetIsLittleToTrue();
+
             GameObject asteroid2 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset2, transform.rotation);
             logic.AddAsteroidsInPlay(asteroid2);
             asteroid2.GetComponent<AsteroidScript>().SetIsLittleToTrue();
+
             logic.RemoveAsteroidInPlay(gameObject);
             Destroy(gameObject);
         }else if(collision.CompareTag("Missile") && isLittle){
             logic.RemoveAsteroidInPlay(gameObject);
             Destroy(gameObject);
         }
-        if(collision.CompareTag("ScreenWrapTopBottom")){
+
+        if(collision.CompareTag("ScreenWrapTopBottomLittle") && isLittle){
+            float offset = collision.transform.position.y > 0 ? -0.4f : 0.2f;
+            transform.position = new Vector3(transform.position.x, -transform.position.y - offset, transform.position.z);
+        }else if(collision.CompareTag("ScreenWrapLeftRightLittle") && isLittle){
+            float offset = collision.transform.position.x > 0 ? -0.2f : 0.2f;
+            transform.position = new Vector3(-transform.position.x - offset, transform.position.y, transform.position.z);
+        }
+
+        
+        if(collision.CompareTag("ScreenWrapTopBottom") && isLittle == false){
             float offset = collision.transform.position.y > 0 ? -0.3f : 0.3f;
             transform.position = new Vector3(transform.position.x, -transform.position.y - offset, transform.position.z);
-        }else if(collision.CompareTag("ScreenWrapLeftRight")){
+        }else if(collision.CompareTag("ScreenWrapLeftRight") && isLittle == false){
             float offset = collision.transform.position.x > 0 ? -0.3f : 0.3f;
             transform.position = new Vector3(-transform.position.x - offset, transform.position.y, transform.position.z);
         }

@@ -16,6 +16,8 @@ public class ShipController : MonoBehaviour
     private float acceleration;
     private float velocity;
     private bool isAlive = true;
+    private int lives = 3;
+    private Animator animator;
 
 
     private float missleOffsetY = 0.4f;
@@ -24,7 +26,7 @@ public class ShipController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,6 +34,7 @@ public class ShipController : MonoBehaviour
     {
         GetInput();
         UpdateMovement();
+        UpdateAnimation();
         UpdateRotation();
         ShootMissle();
     }
@@ -39,6 +42,11 @@ public class ShipController : MonoBehaviour
     void GetInput(){
         xInput = Input.GetAxisRaw("Horizontal");
         yInput = Input.GetAxis("Vertical");
+    }
+
+    void UpdateAnimation(){
+        bool isMoving = yInput > 0;
+        animator.SetBool("IsMoving", isMoving);
     }
 
     void UpdateMovement(){
