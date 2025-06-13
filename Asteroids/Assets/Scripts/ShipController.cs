@@ -18,6 +18,7 @@ public class ShipController : MonoBehaviour
     private bool isAlive = true;
     private int lives = 3;
     private Animator animator;
+    private ParticleSystem deathParticles;
 
 
     private float missleOffsetY = 0.4f;
@@ -26,6 +27,7 @@ public class ShipController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        deathParticles = GetComponent<ParticleSystem>();
         animator = GetComponent<Animator>();
     }
 
@@ -45,7 +47,7 @@ public class ShipController : MonoBehaviour
     }
 
     void UpdateAnimation(){
-        bool isMoving = yInput > 0;
+        bool isMoving = yInput > 0 && isAlive;
         animator.SetBool("IsMoving", isMoving);
     }
 
@@ -91,10 +93,19 @@ public class ShipController : MonoBehaviour
         }
     }
 
+    void PlayDeathParticles(){
+        velocity = 0;
+        if(isAlive){
+            deathParticles.Play();
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Asteroid")){
-            isAlive = false;            
+            GetComponent<SpriteRenderer>().enabled = false;
+            PlayDeathParticles();
+            isAlive = false;
         }
         if(collision.CompareTag("ScreenWrapTopBottom")){
             float offset = collision.transform.position.y > 0 ? -1f : 1f;

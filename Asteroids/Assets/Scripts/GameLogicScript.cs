@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameLogicScript : MonoBehaviour
@@ -8,6 +9,8 @@ public class GameLogicScript : MonoBehaviour
     public GameObject[] spawners;
     private int difficulty = 5;
     private List<GameObject> asteroidsInPlay = new List<GameObject>();
+    public TextMeshProUGUI score;
+    private int scorePoints = 0;
 
 
     // Start is called before the first frame update
@@ -51,5 +54,10 @@ public class GameLogicScript : MonoBehaviour
                 counter++;
             }
         }
+    }
+
+    public void UpdatePoints(int points){
+        scorePoints += points;
+        score.text = scorePoints.ToString();
     }
 }

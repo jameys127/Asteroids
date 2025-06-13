@@ -51,9 +51,12 @@ public class AsteroidScript : MonoBehaviour
             logic.AddAsteroidsInPlay(asteroid2);
             asteroid2.GetComponent<AsteroidScript>().SetIsLittleToTrue();
 
+            logic.UpdatePoints(50);
+
             logic.RemoveAsteroidInPlay(gameObject);
             Destroy(gameObject);
         }else if(collision.CompareTag("Missile") && isLittle){
+            logic.UpdatePoints(100);
             logic.RemoveAsteroidInPlay(gameObject);
             Destroy(gameObject);
         }
