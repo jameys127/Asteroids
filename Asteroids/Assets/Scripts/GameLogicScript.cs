@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameLogicScript : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameLogicScript : MonoBehaviour
     private int difficulty = 5;
     private List<GameObject> asteroidsInPlay = new List<GameObject>();
     public TextMeshProUGUI score;
+    public List<Image> lifeRenderers;
+    private int lives = 3;
     private int scorePoints = 0;
 
 
@@ -40,6 +43,15 @@ public class GameLogicScript : MonoBehaviour
     }
     public void RemoveAsteroidInPlay(GameObject asteroid){
         asteroidsInPlay.Remove(asteroid);
+    }
+
+    public void RemoveLifeTotal(){
+        if(lives > 0){
+            lifeRenderers[lives - 1].enabled = false;
+            lives--;
+        }else{
+            //game over
+        }
     }
 
     void RandomlySpawn(){

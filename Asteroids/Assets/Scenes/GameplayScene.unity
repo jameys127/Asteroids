@@ -650,7 +650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &299218196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,6 +1253,7 @@ MonoBehaviour:
   rotationspeed: 150
   missle: {fileID: 5381278736071545710, guid: 2d31c2d0efdfdcf488df726370e01cf4, type: 3}
   missleCooldown: 0
+  logic: {fileID: 0}
 --- !u!70 &581885736
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7275,6 +7276,10 @@ MonoBehaviour:
   - {fileID: 476578185}
   - {fileID: 559236595}
   score: {fileID: 741707464}
+  lifeRenderers:
+  - {fileID: 276103602}
+  - {fileID: 1406372831}
+  - {fileID: 101485019}
 --- !u!4 &1228360411
 Transform:
   m_ObjectHideFlags: 0

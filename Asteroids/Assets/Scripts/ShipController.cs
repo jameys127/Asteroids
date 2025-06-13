@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShipController : MonoBehaviour
 {
@@ -16,9 +17,11 @@ public class ShipController : MonoBehaviour
     private float acceleration;
     private float velocity;
     private bool isAlive = true;
-    private int lives = 3;
+    private bool isInvulnerable = false;
     private Animator animator;
     private ParticleSystem deathParticles;
+    public GameLogicScript logic;
+    private SpriteRenderer spriteRenderer;
 
 
     private float missleOffsetY = 0.4f;
@@ -27,6 +30,8 @@ public class ShipController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        logic = GameObject.FindGameObjectWithTag("GameLogicManager").GetComponent<GameLogicScript>();
         deathParticles = GetComponent<ParticleSystem>();
         animator = GetComponent<Animator>();
     }
@@ -100,12 +105,40 @@ public class ShipController : MonoBehaviour
         }
     }
 
+    IEnumerator Respawn(){
+        yield return new WaitForSeconds(2f);
+        isAlive = true;
+        logic.RemoveLifeTotal();
+        transform.position = new Vector3(0, 0, transform.position.z);
+        transform.Rotate(0, 0, 0);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.4f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.4f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.4f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.4f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.4f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.4f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.4f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.4f);
+        spriteRenderer.enabled = true;
+        isInvulnerable = false;
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Asteroid")){
-            GetComponent<SpriteRenderer>().enabled = false;
+        if(collision.CompareTag("Asteroid") && !isInvulnerable){
+            spriteRenderer.enabled = false;
             PlayDeathParticles();
             isAlive = false;
+            isInvulnerable = true;
+            StartCoroutine(Respawn());
         }
         if(collision.CompareTag("ScreenWrapTopBottom")){
             float offset = collision.transform.position.y > 0 ? -1f : 1f;
