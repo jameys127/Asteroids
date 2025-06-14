@@ -12,13 +12,13 @@ public class GameLogicScript : MonoBehaviour
     private List<GameObject> asteroidsInPlay = new List<GameObject>();
     public TextMeshProUGUI score;
     public List<Image> lifeRenderers;
-    private int lives = 3;
-    private int scorePoints = 0;
+    private int lives;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        lives = 3;
         StartCoroutine(StartGame());
     }
 
@@ -33,8 +33,11 @@ public class GameLogicScript : MonoBehaviour
             yield return new WaitForSeconds(1f);
             Debug.Log("starting game");
             RandomlySpawn();
-            yield return new WaitUntil(() => asteroidsInPlay.Count == 0);
+            yield return new WaitUntil(CheckGameState);
             yield return new WaitForSeconds(0.1f);
+            if(MenusScript.isGameOver){
+                yield break;
+            }
         }
     }
 
@@ -46,11 +49,22 @@ public class GameLogicScript : MonoBehaviour
     }
 
     public void RemoveLifeTotal(){
-        if(lives > 0){
+        if(lives > 1){
             lifeRenderers[lives - 1].enabled = false;
             lives--;
         }else{
-            //game over
+            lifeRenderers[0].enabled = false;
+            MenusScript.SetGameOver(true);
+        }
+    }
+
+    bool CheckGameState(){
+        if(asteroidsInPlay.Count == 0){
+            return true;
+        }else if(MenusScript.isGameOver){
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -66,10 +80,5 @@ public class GameLogicScript : MonoBehaviour
                 counter++;
             }
         }
-    }
-
-    public void UpdatePoints(int points){
-        scorePoints += points;
-        score.text = scorePoints.ToString();
     }
 }

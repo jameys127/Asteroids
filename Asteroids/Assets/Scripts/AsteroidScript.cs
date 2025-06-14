@@ -6,7 +6,7 @@ public class AsteroidScript : MonoBehaviour
 {
     private bool isLittle = false;
     private float asteroidSpeed = 2f;
-    private float littleAsteroidSpeed = 4.5f;
+    private float littleAsteroidSpeed = 3f;
     public GameObject[] littleAsteroids;
     public GameLogicScript logic;
     Vector3 spawnOffset1;
@@ -17,25 +17,35 @@ public class AsteroidScript : MonoBehaviour
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("GameLogicManager").GetComponent<GameLogicScript>();
-        Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        float randomSpeed = Random.Range(0.5f, 1.5f);
-        moveSpeed = randomDirection * randomSpeed * asteroidSpeed;
+        if(!isLittle){
+            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            float randomSpeed = Random.Range(0.5f, 1.5f);
+            moveSpeed = randomDirection * randomSpeed * asteroidSpeed;
+        }
         rotateSpeed = Random.Range(30, 100);
     }
 
     // Update is called once per frame
     void Update()
     {
+        CheckOutOfBounds();
         transform.Translate(moveSpeed * Time.deltaTime, Space.World);
         transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
     }
 
     public void SetIsLittleToTrue(){
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        float randomSpeed = Random.Range(0.8f, 2f);
+        float randomSpeed = Random.Range(0.5f, 1.5f);
         moveSpeed = randomDirection * randomSpeed * littleAsteroidSpeed;
         rotateSpeed = Random.Range(30, 100);
         isLittle = true;
+    }
+    void CheckOutOfBounds(){
+        if(transform.position.x > 11.5 || transform.position.x < -11.5){
+            transform.position = new Vector3(0, -5.5f, transform.position.z);
+        }else if(transform.position.y > 7.5 || transform.position.y < -7.5){
+            transform.position = new Vector3(0, -5.5f, transform.position.z);
+        }
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -51,12 +61,12 @@ public class AsteroidScript : MonoBehaviour
             logic.AddAsteroidsInPlay(asteroid2);
             asteroid2.GetComponent<AsteroidScript>().SetIsLittleToTrue();
 
-            logic.UpdatePoints(50);
+            MenusScript.UpdatePoints(50);
 
             logic.RemoveAsteroidInPlay(gameObject);
             Destroy(gameObject);
         }else if(collision.CompareTag("Missile") && isLittle){
-            logic.UpdatePoints(100);
+            MenusScript.UpdatePoints(100);
             logic.RemoveAsteroidInPlay(gameObject);
             Destroy(gameObject);
         }

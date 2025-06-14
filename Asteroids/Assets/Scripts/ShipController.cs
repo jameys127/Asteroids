@@ -11,7 +11,7 @@ public class ShipController : MonoBehaviour
     public GameObject missle;
     public float missleCooldown;
     private float maxSpeed = 5f;
-    private float accelerationTime = 3f;
+    private float accelerationTime = 2f;
     private float deccelerationTime = 2.5f;
     private float brakeDeccel = 1f;
     private float acceleration;
@@ -107,10 +107,13 @@ public class ShipController : MonoBehaviour
 
     IEnumerator Respawn(){
         yield return new WaitForSeconds(2f);
-        isAlive = true;
         logic.RemoveLifeTotal();
+        if(MenusScript.isGameOver){
+            yield break;
+        }
+        isAlive = true;
         transform.position = new Vector3(0, 0, transform.position.z);
-        transform.Rotate(0, 0, 0);
+        transform.rotation = Quaternion.identity;
         spriteRenderer.enabled = true;
         yield return new WaitForSeconds(0.4f);
         spriteRenderer.enabled = false;
