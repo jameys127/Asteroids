@@ -5,27 +5,31 @@ using UnityEngine.UI;
 
 public class ShipController : MonoBehaviour
 {
+    //Keyboard Input
     float xInput;
     float yInput;
-    public float rotationspeed;
+    private float maxSpeed = 12f;
+    private float acceleration = 7f;
+    private float drag = 1f;
+    private Vector2 velocity = Vector2.zero;
+    private float rotationspeed = 250f;
+
+    //Missles
     public GameObject missle;
     public float missleCooldown;
-    private float maxSpeed = 5f;
-    private float accelerationTime = 2f;
-    private float deccelerationTime = 2.5f;
-    private float brakeDeccel = 1f;
-    private float acceleration;
-    private float velocity;
+    private float missleOffsetY = 0.4f;
+    private float missleOffsetX = 0.06f;
+
+    //Booleans
     private bool isAlive = true;
     private bool isInvulnerable = false;
+
+    //GameObject references
     private Animator animator;
     private ParticleSystem deathParticles;
     public GameLogicScript logic;
     private SpriteRenderer spriteRenderer;
 
-
-    private float missleOffsetY = 0.4f;
-    private float missleOffsetX = 0.06f;
 
     // Start is called before the first frame update
     void Start()
@@ -57,28 +61,20 @@ public class ShipController : MonoBehaviour
     }
 
     void UpdateMovement(){
-        if(yInput > 0 && isAlive){
-            acceleration = maxSpeed / accelerationTime;
-            velocity += acceleration * Time.deltaTime;
-            if(velocity > maxSpeed){
-                velocity = maxSpeed;
-            }
-            transform.Translate(Vector2.up * velocity * Time.deltaTime);
-        }else if(yInput < 0 && isAlive){
-            acceleration = -maxSpeed / brakeDeccel;
-            velocity += acceleration * Time.deltaTime;
-            if(velocity < 0){
-                velocity = 0;
-            }
-            transform.Translate(Vector2.up * velocity * Time.deltaTime);
-        }else{
-            acceleration = -maxSpeed / deccelerationTime;
-            velocity += acceleration * Time.deltaTime;
-            if(velocity < 0){
-                velocity = 0;
-            }
-            transform.Translate(Vector2.up * velocity * Time.deltaTime);
+        if(!isAlive) return;
+
+        if(yInput > 0){
+            Vector2 thrustDirection = transform.up;
+            velocity += thrustDirection * acceleration * Time.deltaTime;
         }
+
+        velocity = velocity *(1f - drag * Time.deltaTime);
+
+        if(velocity.magnitude > maxSpeed){
+            velocity = velocity.normalized * maxSpeed;
+        }
+
+        transform.Translate(velocity * Time.deltaTime, Space.World);
     }
 
     void UpdateRotation(){
@@ -99,7 +95,7 @@ public class ShipController : MonoBehaviour
     }
 
     void PlayDeathParticles(){
-        velocity = 0;
+        velocity = Vector2.zero;
         if(isAlive){
             deathParticles.Play();
         }

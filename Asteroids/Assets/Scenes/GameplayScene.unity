@@ -651,7 +651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &299218196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1653,7 +1653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85dd4ed3df2df2a4eaa4502c6f6cddfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationspeed: 150
   missle: {fileID: 5381278736071545710, guid: 2d31c2d0efdfdcf488df726370e01cf4, type: 3}
   missleCooldown: 0
   logic: {fileID: 0}
