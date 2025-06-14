@@ -9,6 +9,8 @@ public class MenusScript : MonoBehaviour
     public GameObject gameOverScreen;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI scoreTextGameOver;
+    public GameObject livesText;
+    public GameObject pointsText;
     public static MenusScript instance;
     private int scorePoints = 0;
 
@@ -26,6 +28,8 @@ public class MenusScript : MonoBehaviour
     public static void SetGameOver(bool gameover){
         isGameOver = gameover;
         instance.scoreTextGameOver.text = instance.scorePoints.ToString();
+        instance.livesText.SetActive(false);
+        instance.pointsText.SetActive(false);
         instance.gameOverScreen.SetActive(gameover);
     }
     public static void UpdatePoints(int points){

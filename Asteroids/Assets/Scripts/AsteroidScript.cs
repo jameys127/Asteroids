@@ -8,6 +8,7 @@ public class AsteroidScript : MonoBehaviour
     private float asteroidSpeed = 2f;
     private float littleAsteroidSpeed = 3f;
     public GameObject[] littleAsteroids;
+    public GameObject deathParticles;
     public GameLogicScript logic;
     Vector3 spawnOffset1;
     Vector3 spawnOffset2;
@@ -64,10 +65,12 @@ public class AsteroidScript : MonoBehaviour
             MenusScript.UpdatePoints(50);
 
             logic.RemoveAsteroidInPlay(gameObject);
+            Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }else if(collision.CompareTag("Missile") && isLittle){
             MenusScript.UpdatePoints(100);
             logic.RemoveAsteroidInPlay(gameObject);
+            Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 

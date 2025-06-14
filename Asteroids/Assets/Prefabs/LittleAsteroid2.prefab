@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   littleAsteroids: []
+  deathParticles: {fileID: 9046002431097116828, guid: 1195fd6ad9fec27409ddc9f59a898024, type: 3}
   logic: {fileID: 0}
 --- !u!50 &-4749909436680908633
 Rigidbody2D:
