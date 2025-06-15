@@ -16,7 +16,7 @@ public class ShipController : MonoBehaviour
 
     //Missles
     public GameObject missle;
-    public float missleCooldown;
+    private float missleCooldown;
     private float missleOffsetY = 0.4f;
     private float missleOffsetX = 0.06f;
 
@@ -27,7 +27,7 @@ public class ShipController : MonoBehaviour
     //GameObject references
     private Animator animator;
     private ParticleSystem deathParticles;
-    public GameLogicScript logic;
+    private GameLogicScript logic;
     private SpriteRenderer spriteRenderer;
 
 

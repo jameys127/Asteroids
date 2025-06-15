@@ -8,8 +8,10 @@ public class GameLogicScript : MonoBehaviour
 {
 
     public GameObject[] spawners;
-    private int difficulty = 5;
+    private int difficulty = 4;
     private List<GameObject> asteroidsInPlay = new List<GameObject>();
+    private int wave = 1;
+    private float asteroidSpeed = 1f;
     public TextMeshProUGUI score;
     public List<Image> lifeRenderers;
     private int lives;
@@ -37,6 +39,16 @@ public class GameLogicScript : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             if(MenusScript.isGameOver){
                 yield break;
+            }else{
+                wave++;
+                if(wave > 12){
+                    continue;
+                }else{
+                    asteroidSpeed += 0.2f;
+                }
+                if(wave == 3 || wave == 6 || wave == 9 || wave == 12){
+                    difficulty++;
+                }
             }
         }
     }
@@ -76,7 +88,9 @@ public class GameLogicScript : MonoBehaviour
             int randomIndex = Random.Range(0, 13);
             if((index.Count == 0 || index.Count > 0) && !index.Contains(randomIndex)){
                 index.Add(randomIndex);
-                asteroidsInPlay.Add(spawners[randomIndex].GetComponent<AsteroidSpawnerScript>().SpawnAsteroid());
+                GameObject asteroid = spawners[randomIndex].GetComponent<AsteroidSpawnerScript>().SpawnAsteroid();
+                asteroid.GetComponent<AsteroidScript>().IncreaseSpeed(asteroidSpeed);
+                asteroidsInPlay.Add(asteroid);
                 counter++;
             }
         }

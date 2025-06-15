@@ -5,8 +5,7 @@ using UnityEngine;
 public class AsteroidScript : MonoBehaviour
 {
     private bool isLittle = false;
-    private float asteroidSpeed = 2f;
-    private float littleAsteroidSpeed = 3f;
+    private float asteroidSpeed;
     public GameObject[] littleAsteroids;
     public GameObject deathParticles;
     public GameLogicScript logic;
@@ -34,10 +33,10 @@ public class AsteroidScript : MonoBehaviour
         transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
     }
 
-    public void SetIsLittleToTrue(){
+    public void SetIsLittleToTrue(float passingSpeed){
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        float randomSpeed = Random.Range(0.5f, 1.5f);
-        moveSpeed = randomDirection * randomSpeed * littleAsteroidSpeed;
+        float randomSpeed = Random.Range(0.8f, 2f);
+        moveSpeed = randomDirection * randomSpeed * passingSpeed;
         rotateSpeed = Random.Range(30, 100);
         isLittle = true;
     }
@@ -48,6 +47,10 @@ public class AsteroidScript : MonoBehaviour
             transform.position = new Vector3(0, -5.5f, transform.position.z);
         }
     }
+
+    public void IncreaseSpeed(float asteroidIncrease){
+        asteroidSpeed = asteroidIncrease;
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Missile") && isLittle == false){
@@ -56,11 +59,11 @@ public class AsteroidScript : MonoBehaviour
 
             GameObject asteroid1 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset1, transform.rotation);
             logic.AddAsteroidsInPlay(asteroid1);
-            asteroid1.GetComponent<AsteroidScript>().SetIsLittleToTrue();
+            asteroid1.GetComponent<AsteroidScript>().SetIsLittleToTrue(asteroidSpeed);
 
             GameObject asteroid2 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset2, transform.rotation);
             logic.AddAsteroidsInPlay(asteroid2);
-            asteroid2.GetComponent<AsteroidScript>().SetIsLittleToTrue();
+            asteroid2.GetComponent<AsteroidScript>().SetIsLittleToTrue(asteroidSpeed);
 
             MenusScript.UpdatePoints(50);
 
