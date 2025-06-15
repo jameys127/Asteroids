@@ -51,27 +51,41 @@ public class AsteroidScript : MonoBehaviour
     public void IncreaseSpeed(float asteroidIncrease){
         asteroidSpeed = asteroidIncrease;
     }
+
+    void SpawnLittleAsteroids(){
+        spawnOffset1 = transform.position + transform.up * 0.2f + transform.right * 0.1f;
+        spawnOffset2 = transform.position + transform.up * -0.2f + transform.right * -0.1f;
+
+        GameObject asteroid1 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset1, transform.rotation);
+        logic.AddAsteroidsInPlay(asteroid1);
+        asteroid1.GetComponent<AsteroidScript>().SetIsLittleToTrue(asteroidSpeed);
+
+        GameObject asteroid2 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset2, transform.rotation);
+        logic.AddAsteroidsInPlay(asteroid2);
+        asteroid2.GetComponent<AsteroidScript>().SetIsLittleToTrue(asteroidSpeed);
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Missile") && isLittle == false){
-            spawnOffset1 = transform.position + transform.up * 0.2f + transform.right * 0.1f;
-            spawnOffset2 = transform.position + transform.up * -0.2f + transform.right * -0.1f;
-
-            GameObject asteroid1 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset1, transform.rotation);
-            logic.AddAsteroidsInPlay(asteroid1);
-            asteroid1.GetComponent<AsteroidScript>().SetIsLittleToTrue(asteroidSpeed);
-
-            GameObject asteroid2 = Instantiate(littleAsteroids[Random.Range(0,3)], spawnOffset2, transform.rotation);
-            logic.AddAsteroidsInPlay(asteroid2);
-            asteroid2.GetComponent<AsteroidScript>().SetIsLittleToTrue(asteroidSpeed);
-
+            SpawnLittleAsteroids();
             MenusScript.UpdatePoints(50);
-
             logic.RemoveAsteroidInPlay(gameObject);
             Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }else if(collision.CompareTag("Missile") && isLittle){
             MenusScript.UpdatePoints(100);
+            logic.RemoveAsteroidInPlay(gameObject);
+            Instantiate(deathParticles, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+
+        if((collision.CompareTag("Laser") || collision.CompareTag("UFO")) && isLittle == false){
+            SpawnLittleAsteroids();
+            logic.RemoveAsteroidInPlay(gameObject);
+            Instantiate(deathParticles, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }else if((collision.CompareTag("Laser") || collision.CompareTag("UFO")) && isLittle){
             logic.RemoveAsteroidInPlay(gameObject);
             Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);

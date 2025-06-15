@@ -33,7 +33,6 @@ public class GameLogicScript : MonoBehaviour
     IEnumerator StartGame(){
         while(true){
             yield return new WaitForSeconds(1f);
-            Debug.Log("starting game");
             RandomlySpawn();
             yield return new WaitUntil(CheckGameState);
             yield return new WaitForSeconds(0.1f);
@@ -58,6 +57,10 @@ public class GameLogicScript : MonoBehaviour
     }
     public void RemoveAsteroidInPlay(GameObject asteroid){
         asteroidsInPlay.Remove(asteroid);
+    }
+
+    public int GetWave(){
+        return wave;
     }
 
     public void RemoveLifeTotal(){

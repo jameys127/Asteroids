@@ -132,7 +132,8 @@ public class ShipController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Asteroid") && !isInvulnerable){
+        if((collision.CompareTag("Asteroid") || collision.CompareTag("UFO") ||
+            collision.CompareTag("Laser")) && !isInvulnerable){
             spriteRenderer.enabled = false;
             PlayDeathParticles();
             isAlive = false;
