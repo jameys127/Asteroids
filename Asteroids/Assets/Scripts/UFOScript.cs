@@ -6,6 +6,7 @@ public class UFOScript : MonoBehaviour
 {
     public GameObject laser;
     private Vector2 direction;
+    public GameObject deathParticles;
     private float shootSpeed;
     private float laserSpeed;
     private float moveSpeed;
@@ -46,15 +47,13 @@ public class UFOScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("ScreenWrapLeftRight")||
-           collision.CompareTag("Spaceship")){
-            Debug.Log("i was hit by spaceship");
+           collision.CompareTag("Spaceship") || collision.CompareTag("Asteroid")){
+            Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);
-        }
-        if(collision.CompareTag("Asteroid")){
-            Debug.Log("i was hit");
         }
         if(collision.CompareTag("Missile")){
             MenusScript.UpdatePoints(200);
+            Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

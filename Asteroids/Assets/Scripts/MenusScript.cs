@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MenusScript : MonoBehaviour
 {
     public GameObject gameOverScreen;
+    public GameObject pauseScreen;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI scoreTextGameOver;
     public GameObject livesText;
@@ -21,12 +22,27 @@ public class MenusScript : MonoBehaviour
     {
         instance = this;   
     }
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && MenusScript.isGamePaused == false){
+            SetPause(true);
+        }else if(Input.GetKeyDown(KeyCode.Escape) && MenusScript.isGamePaused){
+            SetPause(false);
+        }
+    }
 
     public static void SetPause(bool pause){
         isGamePaused = pause;
+        instance.pauseScreen.SetActive(pause);
+        if(pause){
+            Time.timeScale = 0f;
+        }else{
+            Time.timeScale = 1f;
+        }
     }
     public static void SetGameOver(bool gameover){
         isGameOver = gameover;
+        LeaderboardManager.Instance.AddNewScore(instance.scorePoints, "AAA");
         instance.scoreTextGameOver.text = instance.scorePoints.ToString();
         instance.livesText.SetActive(false);
         instance.pointsText.SetActive(false);

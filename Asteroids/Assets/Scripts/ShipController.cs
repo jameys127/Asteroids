@@ -43,6 +43,9 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(MenusScript.isGamePaused){
+            return;
+        }
         GetInput();
         UpdateMovement();
         UpdateAnimation();

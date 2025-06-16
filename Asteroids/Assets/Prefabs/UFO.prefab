@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8263742704711480657}
   - component: {fileID: 1788622769581659914}
   - component: {fileID: 3859312660078662839}
-  - component: {fileID: 4487381808125812351}
   - component: {fileID: 8746585110483706598}
+  - component: {fileID: 2794021824328679135}
   m_Layer: 7
   m_Name: UFO
   m_TagString: UFO
@@ -114,8 +114,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!68 &4487381808125812351
-EdgeCollider2D:
+--- !u!114 &8746585110483706598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021312464167404899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c32efae891c234f923191e92ce80c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laser: {fileID: 3069810540590660523, guid: a08f0b4b3c94dcf4babea3d998ddba55, type: 3}
+  deathParticles: {fileID: 1263034221762861077, guid: 0e13bb88bc1565a43b4388032653a80e, type: 3}
+--- !u!60 &2794021824328679135
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -143,31 +157,41 @@ EdgeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   m_Points:
-  - {x: -0.016797846, y: -0.48440933}
-  - {x: -0.60115397, y: -0.24109793}
-  - {x: 0.004708331, y: 0.39251328}
-  - {x: 0.58326924, y: -0.23240566}
-  - {x: -0.01167216, y: -0.4844706}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
---- !u!114 &8746585110483706598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021312464167404899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1c32efae891c234f923191e92ce80c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  laser: {fileID: 3069810540590660523, guid: a08f0b4b3c94dcf4babea3d998ddba55, type: 3}
+    m_Paths:
+    - - {x: 0.59, y: -0.25}
+      - {x: 0.59, y: -0.22}
+      - {x: 0.57, y: -0.16}
+      - {x: 0.42, y: 0.02}
+      - {x: 0.24, y: 0.19999999}
+      - {x: 0.11, y: 0.29}
+      - {x: 0.08, y: 0.38}
+      - {x: 0.04, y: 0.39999998}
+      - {x: -0.04, y: 0.39999998}
+      - {x: -0.08, y: 0.35999998}
+      - {x: -0.13, y: 0.26}
+      - {x: -0.39999998, y: 0.03}
+      - {x: -0.59, y: -0.14999999}
+      - {x: -0.59999996, y: -0.21}
+      - {x: -0.59999996, y: -0.26999998}
+      - {x: -0.57, y: -0.29999998}
+      - {x: -0.19, y: -0.44}
+      - {x: -0.12, y: -0.48999998}
+      - {x: 0.06, y: -0.48999998}
+      - {x: 0.14999999, y: -0.45}
+      - {x: 0.21, y: -0.39999998}
+      - {x: 0.55, y: -0.29}
+  m_UseDelaunayMesh: 0
