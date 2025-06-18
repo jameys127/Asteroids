@@ -12,6 +12,9 @@ public class MainMenuScript : MonoBehaviour
     public void Leaderboard(){
         SceneManager.LoadScene("LeaderboardScene");
     }
+    public void Back(){
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public void Quit(){
         #if UNITY_EDITOR
