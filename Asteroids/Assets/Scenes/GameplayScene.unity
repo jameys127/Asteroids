@@ -1016,6 +1016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputText: {fileID: 1233352143}
+  gameLogicManager: {fileID: 1228360409}
 --- !u!1 &508756484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,6 +1938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missle: {fileID: 5381278736071545710, guid: 2d31c2d0efdfdcf488df726370e01cf4, type: 3}
+  gameLogicManager: {fileID: 1228360409}
 --- !u!70 &581885736
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

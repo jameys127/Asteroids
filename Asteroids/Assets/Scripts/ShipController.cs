@@ -29,11 +29,14 @@ public class ShipController : MonoBehaviour
     private ParticleSystem deathParticles;
     private GameLogicScript logic;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject gameLogicManager;
+    private MenusScript menuscript;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        menuscript = gameLogicManager.GetComponent<MenusScript>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         logic = GameObject.FindGameObjectWithTag("GameLogicManager").GetComponent<GameLogicScript>();
         deathParticles = GetComponent<ParticleSystem>();
@@ -107,7 +110,7 @@ public class ShipController : MonoBehaviour
     IEnumerator Respawn(){
         yield return new WaitForSeconds(2f);
         logic.RemoveLifeTotal();
-        if(MenusScript.isGameOver){
+        if(menuscript.isGameOver){
             yield break;
         }
         isAlive = true;

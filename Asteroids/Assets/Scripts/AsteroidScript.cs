@@ -13,10 +13,12 @@ public class AsteroidScript : MonoBehaviour
     Vector3 spawnOffset2;
     Vector2 moveSpeed;
     int rotateSpeed;
+    private MenusScript menuscript;
     // Start is called before the first frame update
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("GameLogicManager").GetComponent<GameLogicScript>();
+        menuscript = GameObject.FindGameObjectWithTag("GameLogicManager").GetComponent<MenusScript>();
         if(!isLittle){
             Vector2 randomDirection = Random.insideUnitCircle.normalized;
             float randomSpeed = Random.Range(0.5f, 1.5f);
@@ -69,12 +71,12 @@ public class AsteroidScript : MonoBehaviour
     {
         if(collision.CompareTag("Missile") && isLittle == false){
             SpawnLittleAsteroids();
-            MenusScript.UpdatePoints(50);
+            menuscript.UpdatePoints(50);
             logic.RemoveAsteroidInPlay(gameObject);
             Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }else if(collision.CompareTag("Missile") && isLittle){
-            MenusScript.UpdatePoints(100);
+            menuscript.UpdatePoints(100);
             logic.RemoveAsteroidInPlay(gameObject);
             Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);

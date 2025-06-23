@@ -12,10 +12,12 @@ public class UFOScript : MonoBehaviour
     private float moveSpeed;
     private float initialShootSpeed;
     private GameObject spaceship;
+    private MenusScript menuscript;
 
     // Start is called before the first frame update
     void Start()
     {
+        menuscript = GameObject.FindGameObjectWithTag("GameLogicManager").GetComponent<MenusScript>();
         spaceship = GameObject.FindGameObjectWithTag("Spaceship");
     }
 
@@ -52,7 +54,7 @@ public class UFOScript : MonoBehaviour
             Destroy(gameObject);
         }
         if(collision.CompareTag("Missile")){
-            MenusScript.UpdatePoints(200);
+            menuscript.UpdatePoints(200);
             Instantiate(deathParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }

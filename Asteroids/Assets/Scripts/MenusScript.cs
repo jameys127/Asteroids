@@ -15,15 +15,13 @@ public class MenusScript : MonoBehaviour
     public TextMeshProUGUI scoreTextHighscoreEntry;
     public GameObject livesText;
     public GameObject pointsText;
-    public static MenusScript instance;
     private int scorePoints = 0;
 
     public static bool isGamePaused {get; private set;} = false;
-    public static bool isGameOver {get; private set;} = false;
+    public bool isGameOver {get; private set;} = false;
 
     void Awake()
     {
-        instance = this;   
     }
     void Update()
     {
@@ -34,9 +32,9 @@ public class MenusScript : MonoBehaviour
         }
     }
 
-    public static void SetPause(bool pause){
+    public void SetPause(bool pause){
         isGamePaused = pause;
-        instance.pauseScreen.SetActive(pause);
+        pauseScreen.SetActive(pause);
         if(pause){
             Time.timeScale = 0f;
         }else{
@@ -45,37 +43,37 @@ public class MenusScript : MonoBehaviour
     }
 
     public int GetScorePoints(){
-        return instance.scorePoints;
+        return scorePoints;
     }
-    public static void SetGameOver(bool gameover){
-        int currentScore = instance.scorePoints;
+    public void SetGameOver(bool gameover){
+        int currentScore = scorePoints;
         isGameOver = gameover;
         LeaderboardDataScript currentLeaderboard = LeaderboardManager.Instance.LoadLeaderboard();
         if(currentLeaderboard.highscores.Count < 10){
-            instance.scoreTextHighscoreEntry.text = currentScore.ToString();
-            instance.livesText.SetActive(false);
-            instance.pointsText.SetActive(false);
-            instance.highscoreEntry.SetActive(true);
+            scoreTextHighscoreEntry.text = currentScore.ToString();
+            livesText.SetActive(false);
+            pointsText.SetActive(false);
+            highscoreEntry.SetActive(true);
             return;
         }else{
             foreach(var highscore in currentLeaderboard.highscores){
                 if(currentScore > highscore.highscore){
-                    instance.scoreTextHighscoreEntry.text = currentScore.ToString();
-                    instance.livesText.SetActive(false);
-                    instance.pointsText.SetActive(false);
-                    instance.highscoreEntry.SetActive(true);
+                    scoreTextHighscoreEntry.text = currentScore.ToString();
+                    livesText.SetActive(false);
+                    pointsText.SetActive(false);
+                    highscoreEntry.SetActive(true);
                     return;
                 }
             }
         }
-        instance.scoreTextGameOver.text = currentScore.ToString();
-        instance.livesText.SetActive(false);
-        instance.pointsText.SetActive(false);
-        instance.gameOverScreen.SetActive(gameover);
+        scoreTextGameOver.text = currentScore.ToString();
+        livesText.SetActive(false);
+        pointsText.SetActive(false);
+        gameOverScreen.SetActive(gameover);
     }
-    public static void UpdatePoints(int points){
-        instance.scorePoints += points;
-        instance.scoreText.text = instance.scorePoints.ToString();
+    public void UpdatePoints(int points){
+        scorePoints += points;
+        scoreText.text = scorePoints.ToString();
     }
     public void PlayAgain(){
         isGameOver = false;

@@ -8,6 +8,8 @@ public class InputNameScript : MonoBehaviour
 {
     [Header("The value from the input field")]
     [SerializeField] private TMP_InputField inputText;
+    [SerializeField] private GameObject gameLogicManager;
+    private MenusScript menuscript;
     private string input;
 
     public void GrabFromInputField(){
@@ -16,12 +18,13 @@ public class InputNameScript : MonoBehaviour
     }
 
     public void SubmitHighscore(){
+        menuscript = gameLogicManager.GetComponent<MenusScript>();
         GrabFromInputField();
         if(string.IsNullOrEmpty(input)){
             input = "AAA";
             Debug.Log("Set to AAA because null/empty");
         }
-        LeaderboardManager.Instance.AddNewScore(MenusScript.instance.GetScorePoints(), input);
+        LeaderboardManager.Instance.AddNewScore(menuscript.GetScorePoints(), input);
         SceneManager.LoadScene("MainMenu");
     }
 

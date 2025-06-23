@@ -14,13 +14,14 @@ public class GameLogicScript : MonoBehaviour
     private float asteroidSpeed = 1f;
     public TextMeshProUGUI score;
     public List<Image> lifeRenderers;
-    private int lives;
+    private int lives = 3;
+    private MenusScript menuscript;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        lives = 3;
+        menuscript = GetComponent<MenusScript>();
         StartCoroutine(StartGame());
     }
 
@@ -36,7 +37,7 @@ public class GameLogicScript : MonoBehaviour
             RandomlySpawn();
             yield return new WaitUntil(CheckGameState);
             yield return new WaitForSeconds(0.1f);
-            if(MenusScript.isGameOver){
+            if(menuscript.isGameOver){
                 yield break;
             }else{
                 wave++;
@@ -69,14 +70,14 @@ public class GameLogicScript : MonoBehaviour
             lives--;
         }else{
             lifeRenderers[0].enabled = false;
-            MenusScript.SetGameOver(true);
+            menuscript.SetGameOver(true);
         }
     }
 
     bool CheckGameState(){
         if(asteroidsInPlay.Count == 0){
             return true;
-        }else if(MenusScript.isGameOver){
+        }else if(menuscript.isGameOver){
             return true;
         }else{
             return false;
