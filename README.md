@@ -2,9 +2,8 @@
 
 A recreation of the retro arcade classic *Asteroids*, built in Unity with C#. This was my first game dev project, and all of the art was drawn by me on my iPad.
 
-<!-- Add a screenshot or GIF of gameplay here, e.g.:
-![Gameplay](screenshots/gameplay.gif)
--->
+<img width="600" height="374" alt="AsteroidsWithAlienSmallerIcon" src="https://github.com/user-attachments/assets/def57f53-f64f-447b-9f13-0d5ec06a5e4c" />
+
 
 ## Download & Play
 
